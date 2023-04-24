@@ -1,13 +1,20 @@
-# Final-Project
+Documentation for the Design and Development of CRISPR gRNA Tool
 
-CRISPR gRNA Design Target Site Prediction Tool
-Clustered Regularly Interspaced Short Palindromic Repeats also known as CRISP is a technique that is quite frequently used by researchers for precisely targetting a DNA sequence to modify it. Cas9 and small guide RNA (gRNA) molecules are the main proteins that are used in the CRISPR system, where gRNA directs Cas9 protein to a specific DNA site. Cas9 binds to the target sequence and it can either cut or replace the DNA sequence or add a new sequence. A critical step in CRISPR genome editing is designing a gRNA. The gRNA must target the DNA sequence accurately and bind to it with high specificity but there are some challenges involved in designing the gRNA.
-The tool will allow users to design gRNA for CRISPR-based experiments. The web-based tool will predict the off-target effects of gRNA in a given genome. It'll allow the user to input the target genome sequence and gRNA sequences and output a list of potential off-target sites with their corresponding scores. The tool will also provide visualizations to help users understand the potential of off-target effects.
+Tool Background
+CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats) is a powerful gene-editing tool that has revolutionized genetic engineering. CRISPR uses guide RNAs (gRNAs) for guiding the Cas9 enzyme to specific locations in the genome where it can generate specific insertions or cuts. Effective gRNA design is a crucial step in the CRISPR gene-editing process. To drive the CRISPR effector (Cas) protein to its target, all CRISPR-Cas applications employ sgRNA. In theory, CRISPR-Cas targeting requires complementarity between the sgRNA and its nucleic acid target, however, recent studies suggest that efficient targeting follows more complex criteria(1,2,3,4). For instance, gRNAs must be highly efficient in directing the Cas9 enzyme to the target site, be unique to the genome's target location, and avoid any off-target effects that can result in undesired mutations.  While there are existing gRNA design tools(5,6), there is a need for a new tool that enhances gRNA target site specificity, customization, and visualization. In this proposal, I aim to build a user-friendly application, gRNA design tool, that can assist users in designing gRNA with high specificity. customization, and improved visualization.
 
+Tool Functionality
+The gRNA Design Tool requires three to four inputs: the target gene sequence, PAM sequence (Protospacer Adjacent Motif), reference genome, and optional parameters such as gRNA length and GC content. Based on these inputs, the tool will obtain the target gene sequence and generate candidate gRNAs that meet the specific criteria provided. The output would include gRNA sequence, target site location, and potential off-target effects with a graph depicting all the gRNA candidates.
 
+Tool Design and Description
+The CRISPR gRNA Design Tool utilizes the following software technologies to carry out the functionality.
+1.	SQL relational database
+The data analysis module will use a relational database schema designed using MySQL to store target gene sequence from NCBI database, PAM sequence, and off-target data from publicly available database such as CRISPOR. The mysql.connector Python module will be used to connect to MySQL and query the database. The target gene sequence table have columns for gene ID, gene sequence, and gene name. The PAM sequence table have columns for enzyme name and PAM sequence. The off-target data table have columns for gRNA sequence, off-target sequence, and off-target location.
 
+2.	Python-based Computer Gateway Interface (CGI)
+Python CGI programming will be used to create the server-side scripts that handle the data processing and user interactions. The application will have two main components: a data analysis module and a data visualization module. The data analysis module will use a relational database schema designed using MySQL to store the gRNA sequence data. The mysql.connector Python module will be used to connect to MySQL and query the database. 
+The data analysis module will use the inputs from the front-end interface and the data from the MySQL database to generate candidate gRNAs. The generated gRNAs will be passed to the data visualization module. The data visualization module will take the generated gRNAs and use them to create the output that will be displayed to the user.
 
-
-
-
-
+3.	HTML/CSS/JavaScript-based graphic user interface (GUI)
+The frontend of the tool will be developed using HTML5, CSS, and JavaScript, providing a user-friendly interface for users to interact with the data. JQuery will be used to enable client-side interaction and dynamic updates of the data visualization. The HTML templates will be used to generate dynamic HTML pages that display the gRNA design results.
+Overall, this project will provide a valuable tool for researchers to design and analyze gRNAs with ease and accuracy. It will leverage the power of modern web technologies and Python programming to provide a user-friendly and customizable interface for gRNA design and analysis.
