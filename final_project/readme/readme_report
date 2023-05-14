@@ -1,0 +1,30 @@
+
+Proposal for the Design and Development of CRISPR gRNA Design Tool
+
+Tool Background
+CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats) is a powerful gene-editing tool that has revolutionized genetic engineering. CRISPR uses guide RNAs (gRNAs) for guiding the Cas9 enzyme to specific locations in the genome where it can generate specific insertions or cuts. Effective gRNA design is a crucial step in the CRISPR gene-editing process. To drive the CRISPR effector (Cas) protein to its target, all CRISPR-Cas applications employ sgRNA. In theory, CRISPR-Cas targeting requires complementarity between the sgRNA and its nucleic acid target, however, recent studies suggest that efficient targeting follows more complex criteria(1,2,3,4). For instance, gRNAs must be highly efficient in directing the Cas9 enzyme to the target site, be unique to the genome's target location, and avoid any off-target effects that can result in undesired mutations.  While there are existing gRNA design tools(5,6), there is a need for a new tool that enhances gRNA target site specificity, customization, and visualization. In this proposal, I aim to build a user-friendly application, gRNA design tool, that can assist users in designing gRNA with high specificity. customization, and improved visualization.
+
+Tool Functionality
+The gRNA Design Tool requires three to four inputs: the target gene sequence, PAM sequence (Protospacer Adjacent Motif), reference genome, and optional parameters such as gRNA length and GC content. Based on these inputs, the tool will obtain the target gene sequence and generate candidate gRNAs that meet the specific criteria provided. The output would include gRNA sequence, target site location, and potential off-target effects with a graph depicting all the gRNA candidates.
+
+Tool Design and Description
+The CRISPR gRNA Design Tool utilizes the following software technologies to carry out the functionality.
+1.	SQL relational database
+The data analysis module will use a relational database schema designed using MySQL to store target gene sequence from NCBI database, PAM sequence, and off-target data from publicly available database such as CRISPOR. The mysql.connector Python module will be used to connect to MySQL and query the database. The target gene sequence table have columns for gene ID, gene sequence, and gene name. The PAM sequence table have columns for enzyme name and PAM sequence. The off-target data table have columns for gRNA sequence, off-target sequence, and off-target location.
+
+2.	Python-based Computer Gateway Interface (CGI)
+Python CGI programming will be used to create the server-side scripts that handle the data processing and user interactions. The application will have two main components: a data analysis module and a data visualization module. The data analysis module will use a relational database schema designed using MySQL to store the gRNA sequence data. The mysql.connector Python module will be used to connect to MySQL and query the database. 
+The data analysis module will use the inputs from the front-end interface and the data from the MySQL database to generate candidate gRNAs. The generated gRNAs will be passed to the data visualization module. The data visualization module will take the generated gRNAs and use them to create the output that will be displayed to the user.
+
+3.	HTML/CSS/JavaScript-based graphic user interface (GUI)
+The frontend of the tool will be developed using HTML5, CSS, and JavaScript, providing a user-friendly interface for users to interact with the data. JQuery will be used to enable client-side interaction and dynamic updates of the data visualization. The HTML templates will be used to generate dynamic HTML pages that display the gRNA design results.
+Overall, this project will provide a valuable tool for researchers to design and analyze gRNAs with ease and accuracy. It will leverage the power of modern web technologies and Python programming to provide a user-friendly and customizable interface for gRNA design and analysis.
+
+References:
+1.	Doench, J. G., Fusi, N., Sullender, M., Hegde, M., Vaimberg, E. W., Donovan, K. F., Smith, I., Tothova, Z., Wilen, C., Orchard, R., Virgin, H. W., Listgarten, J., & Root, D. E. (2016). Optimized sgRNA design to maximize activity and minimize off-target effects of CRISPR-Cas9. Nature biotechnology, 34(2), 184–191. https://doi.org/10.1038/nbt.3437
+2.	Chari, R., Mali, P., Moosburner, M., & Church, G. M. (2015). Unraveling CRISPR-Cas9 genome engineering parameters via a library-on-library approach. Nature methods, 12(9), 823–826. https://doi.org/10.1038/nmeth.3473
+3.	Xu, H., Xiao, T., Chen, C. H., Li, W., Meyer, C. A., Wu, Q., Wu, D., Cong, L., Zhang, F., Liu, J. S., Brown, M., & Liu, X. S. (2015). Sequence determinants of improved CRISPR sgRNA design. Genome research, 25(8), 1147–1157. https://doi.org/10.1101/gr.191452.115
+4.	Moreno-Mateos, M. A., Vejnar, C. E., Beaudoin, J. D., Fernandez, J. P., Mis, E. K., Khokha, M. K., & Giraldez, A. J. (2015). CRISPRscan: designing highly efficient sgRNAs for CRISPR-Cas9 targeting in vivo. Nature methods, 12(10), 982–988. https://doi.org/10.1038/nmeth.3543
+5.	Labun, K., Krause, M., Torres Cleuren, Y., & Valen, E. (2021). CRISPR Genome Editing Made Easy Through the CHOPCHOP Website. Current protocols, 1(4), e46. https://doi.org/10.1002/cpz1.46
+6.	Labun, K., Montague, T. G., Gagnon, J. A., Thyme, S. B., & Valen, E. (2016). CHOPCHOP v2: a web tool for the next generation of CRISPR genome engineering. Nucleic acids research, 44(W1), W272–W276. https://doi.org/10.1093/nar/gkw398
+

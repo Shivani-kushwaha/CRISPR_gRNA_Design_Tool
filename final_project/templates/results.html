@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Target gRNA</h1>
+  <div id="scatter_plot"></div>
+  <table>
+    <tr>
+      <th>gRNA</th>
+      <th>GC Content</th>
+      <th>Efficiency score</th>
+    </tr>
+    
+    {% for row in out %}
+        <tr>
+          <td>
+      {{row[0]}}
+          </td>
+          <td>
+          {{row[1]}}
+          </td>
+          <td>
+          {{row[2]}}
+          </td>
+        </tr>
+    {% endfor %}
+  </table>
+
+  
+
+  <script>
+    // Assuming the data is in the 'out' variable passed to the template
+    const out = {{ out|tojson }}; // Convert the out variable to a JSON object
+
+    // Extract the gRNA, GC Content, and Efficiency score values from the out variable
+    const gRNAs = out.map(row => row[0]);
+    const gcContents = out.map(row => row[1]);
+    const efficiencyScores = out.map(row => row[2]);
+
+    // Create a scatter plot trace
+    const trace = {
+      x: gcContents,
+      y: efficiencyScores,
+      mode: 'markers',
+      type: 'scatter',
+      text: gRNAs,
+      marker: { size: 8 },
+      hovertemplate: 'gRNA: %{text}<br>GC Content: %{x}<br>Efficiency Score: %{y}<extra></extra>'
+    };
+
+    const data = [trace];
+
+    // Customize the plot layout
+    const layout = {
+      title: 'GC Content vs. Efficiency Score',
+      xaxis: { title: 'GC Content' },
+      yaxis: { title: 'Efficiency Score' },
+      hovermode: 'closest',
+    };
+
+    // Render the plot in the scatter_plot div
+    Plotly.newPlot('scatter_plot', data, layout);
+
+    // Add a click event to get the gRNA name when a point is selected
+    const scatterPlot = document.getElementById('scatter_plot');
+    scatterPlot.on('plotly_click', function (data) {
+      const point = data.points[0];
+      const gRNA = point.text;
+      alert('Selected gRNA: ' + gRNA);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>gRNA Design Tool</title>
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+    <script type="text/javascript" src="js/gRNA_design.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	
+</head>
+<body style="background-image: url('./img/APCC.jpg');">
+	<h1 style="font-family: Verdana;">CRISPR gRNA Design Tool</h1>
+	<h2 style="font-family: Verdana;">Select the accession ID of a gene Sequence</h2>
+	
+	<form name="gRNA_form" id="gRNA_form" method="post" action="./gRNA_design.cgi">	
+		
+		<label for="accession_id" id="accession_id">Select Accession ID:</label>
+		<select id="accession_id" name="accession_id" style="width: 500px; height: 30px;">
+			<option value="">Select accession_id</option>
+			<option value="NM_012310">NM_012310</option>
+			<option value="NC_060925">NC_060925</option>
+			<option value="NC_000001">NC_000001</option>
+			<option value="NM_012310">NM_012310</option>
+			<option value="NC_060925">NC_060925</option>
+			<option value="NC_000001">NC_000001</option>
+			<option value="NM_001177984">NM_001177984</option>
+			<option value="NM_014191">NM_014191</option>
+			<option value="NM_001330260">NM_001330260</option>
+			<option value="NM_001369788">NM_001369788</option>
+			<option value="NG_149640">NG_149640</option>
+			<option value="NM_001286561">NM_001286561</option>
+			<option value="NM_006185">NM_006185</option>
+			<option value="NR_104476">NR_104476</option>
+			<option value="NM_134425">NM_134425</option>
+			<option value="NM_213613">NM_213613</option>
+			<option value="NM_022042">NM_022042</option>
+			<option value="NM_001351244">NM_001351244</option>
+			<option value="NM_001243787">NM_001243787</option>
+			<option value="NM_001351250">NM_001351250</option>
+			<option value="NM_001351243">NM_001351243</option>
+			<option value="NM_001351242">NM_001351242</option>
+			<option value="NM_001351251">NM_001351251</option>
+			
+		</select><br><br>
+		
+		<label for="gRNA_len" >gRNA Length:</label>
+			<input type="number" id="gRNA_len" name="gRNA_len" min="15" max="25"><br><br>
+		
+		<label for="PAM_seq" id="PAM_seq">Select the desired PAM Sequence:</label>
+		<!-- added jQuery UI selector widget -->
+		<select id="PAM_seq" name="PAM_seq">
+			<option value="">Select PAM Seq</option>
+			<option value="NAG">NAG</option>
+			<option value="NGG">NGG</option>
+			<option value="NNGRRT">NNGRRT</option>
+		</select><br><br>
+		
+		<!-- added jQuery UI tooltip widget -->
+		<label for="GC_content_min">Min GC content:</label>
+			<input type="number" step="0.01" id="GC_content_min" name="GC_content_min" placeholder="0.2"><br><br>
+	
+		<!-- added jQuery UI tooltip widget -->
+		<label for="GC_content_max">Max GC content:</label>
+			<input type="number" step="0.01" id="GC_content_max" name="GC_content_max" placeholder="0.8"><br><br>
+		
+		<input type="submit" value="Submit">
+	</form>
+	
+</body>
+</html>
+
+
