@@ -46,7 +46,6 @@ def doench_score(sequence):
     n20_contains_ggcc = 'GG' in n20 or 'CC' in n20
     
     # Calculate weighted sum of features (weights obtained from (Doench et al. 2016) https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4262738/bin/NIHMS640263-supplement-Supp_tables_1-10.xlsx)
-def doench_score(sequence):
     weights = [0.02484385, -0.21518894, 0.05714594, 0.06682567, 0.06812816, -0.18217484]
     intercept = 0.59763615
     score = intercept
