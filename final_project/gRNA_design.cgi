@@ -26,20 +26,15 @@ min_gc_content = float(form.getvalue('GC_content_min')) #0.2
 max_gc_content = float(form.getvalue('GC_content_max')) #0.8
 
 
-# Fetch the FASTA sequence for the accession ID
-# Provide your email address to NCBI
+# Fetch the FASTA sequence for the accession ID by providng your email address to NCBI
 Entrez.email = "skushwa2@jh.edu"
 handle = Entrez.efetch(db="nucleotide", id=accession_id, rettype="fasta", retmode="text")
 record = SeqIO.read(handle, "fasta")
 
-
-# Print the sequence
 target_sequence = str(record.seq)
+handle.close() # Close the handle
 
-# Close the handle
-handle.close()
-
-# doench_score 
+# doench_score (Doench et al. 2016) https://pubmed.ncbi.nlm.nih.gov/25184501/
 def doench_score(sequence):
     # Extract sequence features
     gc_content = (sequence.count('G') + sequence.count('C')) / float(len(sequence))
@@ -50,7 +45,8 @@ def doench_score(sequence):
     n20 = sequence[1:21]
     n20_contains_ggcc = 'GG' in n20 or 'CC' in n20
     
-    # Calculate weighted sum of features
+    # Calculate weighted sum of features (weights obtained from (Doench et al. 2016) https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4262738/bin/NIHMS640263-supplement-Supp_tables_1-10.xlsx)
+def doench_score(sequence):
     weights = [0.02484385, -0.21518894, 0.05714594, 0.06682567, 0.06812816, -0.18217484]
     intercept = 0.59763615
     score = intercept
@@ -64,7 +60,7 @@ def doench_score(sequence):
     # Apply logistic function to obtain probability of efficiency
     efficiency = 1 / (1 + math.exp(-score))
     return round(efficiency, 4)
-#print(target_sequence)
+
 # Find all guide RNAs containing the PAM sequence and with GC content within the specified range
 grnas = {}
 for i in range(len(target_sequence) - grna_length + 1):
@@ -83,7 +79,3 @@ eff=list(df[:,2])
 
 print("Content-Type: text/html\n\n")
 print(template.render(out = list(zip(gRNA,GC,eff))))
-
-
-# print “Content-type: text/plain\n”
-# print “Received accession %s” % acc
