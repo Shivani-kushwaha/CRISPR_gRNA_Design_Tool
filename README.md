@@ -40,3 +40,6 @@ https://biopython.org/docs/1.76/api/Bio.Entrez.html
 
 https://www.ncbi.nlm.nih.gov/search/
 
+<img width="688" alt="image" src="https://github.com/user-attachments/assets/88611949-cd7a-4b45-82e1-405cc4d20877">
+<img width="738" alt="image" src="https://github.com/user-attachments/assets/3a482a1c-3294-4769-8535-23f867838141">
+
